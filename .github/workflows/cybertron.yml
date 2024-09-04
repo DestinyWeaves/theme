@@ -51,7 +51,7 @@ jobs:
       - name: Build theme XML
         run: cybertron build
           --name "${{ vars.theme_name }}-${{ matrix.theme_variant }}"
-          --macros_folder "_site/macros"
+          --macros-folder "_site/macros"
           --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
           --templates-folder "_site/templates"
           --wrapper "_site/wrapper.html"
