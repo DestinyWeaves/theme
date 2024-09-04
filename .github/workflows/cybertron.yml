@@ -27,7 +27,7 @@ jobs:
           JEKYLL_ENV: production
       
       - name: Build flat assets
-        run: ./flat_assets.sh REPLACE_ME _site flat_assets "${{ vars.asset_url_prefix }}"
+        run: ./flat_assets.sh REPLACE_ME _site _site/flat_assets "${{ vars.asset_url_prefix }}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
