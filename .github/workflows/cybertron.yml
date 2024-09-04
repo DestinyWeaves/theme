@@ -45,12 +45,11 @@ jobs:
           echo "::set-output name=platform::${RUNNER_OS}_${RUNNER_ARCH}"
 
       - name: Download Cybertron
-        uses: robinraju/release-downloader@v1
+        uses: actions/download-artifact@v4
         with:
           repository: magratheaguide/cybertron
-          latest: true
-          fileName: cybertron_*_${{ steps.var.outputs.platform }}
-          out-file-path: cybertron
+          name: cybertron_*_${{ steps.var.outputs.platform }}
+          path: /usr/bin/cybertron
       
       - name: Test Cybertron
         run: |
