@@ -1,0 +1,57 @@
+
+name: Compile JCINK Theme using Cybertron
+
+
+on:
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute Platform String
+        id: var
+        env:
+          RUNNER_OS: ${{ runner.os }}
+          RUNNER_ARCH: ${{ runner.arch }}
+        run: |
+          RUNNER_OS=${RUNNER_OS,,}
+          RUNNER_OS=${RUNNER_OS/macos/darwin}
+          RUNNER_ARCH=${RUNNER_ARCH,,}
+          RUNNER_ARCH=${RUNNER_ARCH/x64/amd64}
+          RUNNER_ARCH=${RUNNER_ARCH/arm/armv7}
+          echo "::set-output name=platform::${RUNNER_OS}_${RUNNER_ARCH}"
+
+      - name: Download Cybertron
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: magratheaguide/cybertron
+          latest: true
+          fileName: cybertron_*_${{ steps.var.outputs.platform }}
+          out-file-path: cybertron
+      
+      - name: Test Cybertron
+        run: |
+          cybertron --help
