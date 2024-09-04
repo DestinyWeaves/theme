@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -x
-shopt -s globstar
+shopt -s globstar extglob
 
 replace_token="$1"
 site_path="$2"
@@ -10,8 +10,7 @@ url_prefix="$4"
 
 mkdir -p "${flat_path}"
 
-
-for filename in ${site_path}/assets/**/*.*; do
+for filename in ${site_path}/assets/**/*.@(js|css|jpg|png|json); do
     orig_name="${filename/#$site_path\/assets\/}"
     flat_name="${orig_name//\//__}"
 
