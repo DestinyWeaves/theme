@@ -33,6 +33,7 @@ jobs:
 
   flatten:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -55,6 +56,7 @@ jobs:
         
   pack:
     runs-on: ubuntu-latest
+    needs: flatten
     strategy:
       matrix:
         theme_variant: [default, dark, light]
