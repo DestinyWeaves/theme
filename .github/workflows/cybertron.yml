@@ -43,7 +43,7 @@ jobs:
           name: site
           path: _site
       - name: Build flat assets
-        run: ./flat_assets.sh REPLACE_ME _site _site/flat_assets "${{ vars.asset_url_prefix }}"
+        run: ./flat_assets.sh _site "${{ vars.asset_url_prefix }}"
       - name: Upload flat assets
         uses: actions/upload-artifact@v4
         with:
