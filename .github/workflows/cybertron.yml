@@ -31,27 +31,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Compute Platform String
-        id: var
-        env:
-          RUNNER_OS: ${{ runner.os }}
-          RUNNER_ARCH: ${{ runner.arch }}
-        run: |
-          RUNNER_OS=${RUNNER_OS,,}
-          RUNNER_OS=${RUNNER_OS/macos/darwin}
-          RUNNER_ARCH=${RUNNER_ARCH,,}
-          RUNNER_ARCH=${RUNNER_ARCH/x64/amd64}
-          RUNNER_ARCH=${RUNNER_ARCH/arm/armv7}
-          echo "::set-output name=platform::${RUNNER_OS}_${RUNNER_ARCH}"
-
-      - name: Download Cybertron
+      - name: Install Cybertron
         uses: sigoden/install-binary@v1
         with:
           repo: magratheaguide/cybertron
-          # fileName: cybertron_*_${{ steps.var.outputs.platform }}
           name: cybertron
-          tag: v1.1.0
+          # tag: v1.1.0
       
-      - name: Test Cybertron
+      - name: Build Theme XML
         run: |
-          cybertron --help
+          cybertron build --name "DestinyWeaves"
+          
