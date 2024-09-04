@@ -49,13 +49,12 @@ jobs:
           name: cybertron
           # tag: v1.1.0
       - name: Build theme XML
-        run: >-
-          cybertron build
-            --name "${{ vars.theme_name }}-${{ matrix.theme_variant }}"
-            --macros_folder "_site/macros"
-            --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
-            --templates-folder "_site/templates"
-            --wrapper "_site/wrapper.html"
+        run: cybertron build
+          --name "${{ vars.theme_name }}-${{ matrix.theme_variant }}"
+          --macros_folder "_site/macros"
+          --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
+          --templates-folder "_site/templates"
+          --wrapper "_site/wrapper.html"
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
