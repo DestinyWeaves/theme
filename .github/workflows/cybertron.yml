@@ -48,7 +48,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           repository: magratheaguide/cybertron
-          name: cybertron_*_${{ steps.var.outputs.platform }}
+          pattern: cybertron_*_${{ steps.var.outputs.platform }}
           path: /usr/bin/cybertron
       
       - name: Test Cybertron
