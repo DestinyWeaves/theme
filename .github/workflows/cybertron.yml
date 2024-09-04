@@ -22,7 +22,7 @@ jobs:
           cache-version: 0 # Increment this number if you need to re-download cached gems
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl REPLACE_ME
+        run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
       - name: Upload generated site
@@ -42,13 +42,13 @@ jobs:
         with:
           name: site
           path: _site
-      - name: Build flat assets
+      - name: Flatten assets
         run: ./flat_assets.sh _site "${{ vars.asset_url_prefix }}"
-      - name: Upload flat assets
+      - name: Upload flattened assets
         uses: actions/upload-artifact@v4
         with:
-          name: assets
-          path: _site/flat_assets
+          name: flat_assets
+          path: _site/flat
       - name: Upload flattened site
         uses: actions/upload-artifact@v4
         with:
@@ -67,7 +67,7 @@ jobs:
       - name: Download generated site
         uses: actions/download-artifact@v4
         with:
-          name: site
+          name: flat_site
           path: _site
       - name: Install Cybertron
         uses: sigoden/install-binary@v1
@@ -75,14 +75,14 @@ jobs:
           repo: magratheaguide/cybertron
           name: cybertron
           # tag: v1.1.0
-      - name: Build theme XML
+      - name: Build skin xml
         run: cybertron build
           --name "${{ vars.theme_name }}-${{ matrix.theme_variant }}"
           --macros-folder "_site/macros"
           --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
           --templates-folder "_site/templates"
           --wrapper "_site/wrapper.html"
-      - name: Upload artifact
+      - name: Upload skin xml
         uses: actions/upload-artifact@v4
         with:
           name: skin-${{ matrix.theme_variant }}
@@ -112,9 +112,9 @@ jobs:
       - name: Collect flattened assets
         uses: actions/download-artifact@v4
         with:
-          name: assets
+          name: flat_assets
           path: assets
-      - name: Upload collection
+      - name: Upload skinpack
         uses: actions/upload-artifact@v4
         with:
           name: skinpack
