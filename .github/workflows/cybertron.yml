@@ -85,7 +85,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.theme_variant }}-theme
+          name: skin-${{ matrix.theme_variant }}
           path: "${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
 
   release:
@@ -97,17 +97,17 @@ jobs:
       - name: Collect default theme
         uses: actions/download-artifact@v4
         with:
-          name: theme-default
+          name: skin-default
           path: .
       - name: Collect dark theme
         uses: actions/download-artifact@v4
         with:
-          name: theme-dark
+          name: skin-dark
           path: .
       - name: Collect light theme
         uses: actions/download-artifact@v4
         with:
-          name: theme-light
+          name: skin-light
           path: .
       - name: Collect flattened assets
         uses: actions/download-artifact@v4
@@ -117,7 +117,7 @@ jobs:
       - name: Upload collection
         uses: actions/upload-artifact@v4
         with:
-          name: skin
+          name: skinpack
           path: .
     
 
