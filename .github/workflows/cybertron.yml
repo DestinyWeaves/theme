@@ -25,18 +25,34 @@ jobs:
         run: bundle exec jekyll build --baseurl REPLACE_ME
         env:
           JEKYLL_ENV: production
-      - name: Upload generated site artifact
-        # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@v3
-
-      - name: Build flat assets
-        run: ./flat_assets.sh REPLACE_ME _site _site/flat_assets "${{ vars.asset_url_prefix }}"
-
-      - name: Upload flat assets artifact
+      - name: Upload generated site
         uses: actions/upload-artifact@v4
         with:
-          path: _site/flat_assets
+          name: site
+          path: _site
 
+  flatten:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Build flat assets
+        run: ./flat_assets.sh REPLACE_ME _site _site/flat_assets "${{ vars.asset_url_prefix }}"
+      - name: Upload flat assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: assets
+          path: _site/flat_assets
+      - name: Upload flattened site
+        uses: actions/upload-artifact@v4
+        with:
+          name: flat_site
+          path: _site
+        
   pack:
     runs-on: ubuntu-latest
     strategy:
@@ -45,6 +61,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
       - name: Install Cybertron
         uses: sigoden/install-binary@v1
         with:
@@ -61,4 +81,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
+          name: ${{ matrix.theme_variant }}-theme
           path: "${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
