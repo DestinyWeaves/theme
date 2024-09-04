@@ -47,7 +47,7 @@ jobs:
       - name: Download Cybertron
         uses: sigoden/install-binary@v1
         with:
-          repository: magratheaguide/cybertron
+          repo: magratheaguide/cybertron
           # fileName: cybertron_*_${{ steps.var.outputs.platform }}
           name: cybertron
           tag: v1.1.0
