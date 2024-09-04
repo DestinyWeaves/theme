@@ -1,0 +1,53 @@
+theme: just-the-docs
+color_scheme: dark
+url: https://destinyweaves.github.io/Guidebook/
+plugins:
+  - jekyll-default-layout
+  - jekyll-remote-theme
+remote_theme: just-the-docs/just-the-docs
+
+callouts:
+  warning:
+    title: Warning
+    color: red
+  highlight:
+    color: yellow
+  note:
+    title: Note
+    color: purple
+  important:
+    title: Important
+    color: blue
+  new:
+    title: New
+    color: green
+
+
+logo: /assets/images/logo.png
+favicon_ico: /assets/images/favicon.png
+
+title: Destiny Weaves Guidebook
+description: Guidebook for the Destiny Weaves Pern Roleplay Game on JcInk
+discord: &discord https://discord.gg/4SgEpuzqYR
+jcink: &jcink https://destinyweaves.jcink.net/
+github: &github https://github.com/DestinyWeaves/Guidebook
+
+aux_links:
+  JCINK Forum: *jcink
+  '<i class="fab fa-discord"></i>&nbsp;Discord': *discord
+
+# Copyright Notice Footer
+footer_content: |
+  Copyright &copy; 2024 Destiny Weaves, distributed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC-BY-SA-4.0</a>.
+  Theme &copy 2022 just-the-docs, used under the <a href=\"https://github.com/just-the-docs/just-the-docs/tree/main/LICENSE.txt\">MIT license</a>.
+
+# Edit Timestamp in Footer
+last_edit_timestamp: true # show edit timestamp in footer
+last_edit_time_format: "%Y-%m-%dT%H:%M:%S.%L%z" # ISO-8601
+
+# Edit Link in Footer
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub."
+gh_edit_repository: *github
+gh_edit_branch: main
+gh_edit_view_mode: edit # "tree" or "edit" if you want the user to jump into the editor immediately
