@@ -1,7 +1,6 @@
 
 name: Compile JCINK Theme using Cybertron
 
-
 on:
   push:
     branches: ["main"]
@@ -9,27 +8,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Install Cybertron
         uses: sigoden/install-binary@v1
@@ -38,7 +22,10 @@ jobs:
           name: cybertron
           # tag: v1.1.0
       
-      - name: Build Theme XML
-        run: |
-          cybertron build --name "DestinyWeaves"
-          
+      - name: Build theme XML
+        run: cybertron build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: theme.xml
