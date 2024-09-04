@@ -37,7 +37,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - name: Download generated site
+        uses: actions/download-artifact@v4
         with:
           name: site
           path: _site
@@ -63,7 +64,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - name: Download generated site
+        uses: actions/download-artifact@v4
         with:
           name: site
           path: _site
@@ -85,3 +87,37 @@ jobs:
         with:
           name: ${{ matrix.theme_variant }}-theme
           path: "${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
+
+  release:
+    runs-on: ubuntu-latest
+    needs:
+      - flatten
+      - pack
+    steps:
+      - name: Collect default theme
+        uses: actions/download-artifact@v4
+        with:
+          name: theme-default
+          path: .
+      - name: Collect dark theme
+        uses: actions/download-artifact@v4
+        with:
+          name: theme-dark
+          path: .
+      - name: Collect light theme
+        uses: actions/download-artifact@v4
+        with:
+          name: theme-light
+          path: .
+      - name: Collect flattened assets
+        uses: actions/download-artifact@v4
+        with:
+          name: assets
+          path: assets
+      - name: Upload collection
+        uses: actions/upload-artifact@v4
+        with:
+          name: skin
+          path: .
+    
+
