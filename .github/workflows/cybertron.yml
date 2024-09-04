@@ -1,6 +1,9 @@
 
 name: Compile JCINK Theme using Cybertron
 
+env:
+  theme_name
+
 on:
   push:
     branches: ["main"]
@@ -23,9 +26,9 @@ jobs:
           # tag: v1.1.0
       
       - name: Build theme XML
-        run: cybertron build
+        run: cybertron build --name "${{ vars.theme_name }}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          path: theme.xml
+          path: "${{ vars.theme_name }}.xml"

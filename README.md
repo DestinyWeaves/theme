@@ -1,2 +1,2 @@
-# theme
-JCINK Theme for Destiny Weaves, to match the Guidebook
+# Destiny Weaves Theme
+JCINK Theme for Destiny Weaves
