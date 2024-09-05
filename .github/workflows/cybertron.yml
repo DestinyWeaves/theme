@@ -150,7 +150,7 @@ jobs:
           path: pack
       - name: Install skinpack
         run: python _tools/jcink_upload/main.py
-          --remote-driver http://127.0.0.1:4444/wd/hub
+          --remote-driver http://selenium:4444/wd/hub
           --assets pack/assets_*
           --assets-root pack/
           --skin pack/*default*.xml
