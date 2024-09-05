@@ -3,13 +3,13 @@ set -e -x
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-asset_url_prefix="https://files.jcink.net/uploads2/ajmansfieldtestboard/assets"
-theme_name=JustTheDocs
+asset_url_prefix="https://files.jcink.net/uploads2/ajmansfieldtestboard"
+theme_name=just-the-docs
 theme_variant=dark
 
 bundle exec jekyll build
 
-"$SCRIPT_DIR/flat_assets.sh" _site "${asset_url_prefix}"
+"$SCRIPT_DIR/flat_assets.sh" _site "${asset_url_prefix}" $(git describe --always --dirty --broken)
 
 cybertron build \
   --name "${theme_name} ${theme_variant} $(git describe --always --dirty --broken)" \
