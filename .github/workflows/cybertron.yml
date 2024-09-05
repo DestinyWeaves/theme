@@ -86,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: skin-${{ matrix.theme_variant }}
-          path: "_site/${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken).xml"
+          path: "_site/${{ vars.theme_name }} ${{ matrix.theme_variant }} *.xml"
 
   release:
     runs-on: ubuntu-latest
