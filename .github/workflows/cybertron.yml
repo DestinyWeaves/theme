@@ -82,6 +82,7 @@ jobs:
           --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
           --templates-folder "_site/html-templates"
           --wrapper "_site/wrapper.html"
+          --output-directory "_site/"
       - name: Normalize skin filename
         run: mv "_site/${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken).xml" "_site/${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
       - name: Upload skin xml
