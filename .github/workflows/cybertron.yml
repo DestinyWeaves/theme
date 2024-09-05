@@ -43,7 +43,7 @@ jobs:
           name: site
           path: _site
       - name: Flatten assets
-        run: ./_tools/flat_assets.sh _site "${{ vars.asset_url_prefix }}"
+        run: ./_tools/flat_assets.sh _site "${{ vars.asset_url_prefix }}-$(git describe --always --dirty --broken)"
       - name: Upload flattened assets
         uses: actions/upload-artifact@v4
         with:
@@ -77,7 +77,7 @@ jobs:
           # tag: v1.1.0
       - name: Build skin xml
         run: cybertron build
-          --name "${{ vars.theme_name }}-${{ matrix.theme_variant }}"
+          --name "${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken)"
           --macros-folder "_site/macros"
           --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
           --templates-folder "_site/html-templates"
@@ -86,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: skin-${{ matrix.theme_variant }}
-          path: "_site/${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
+          path: "_site/${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken).xml"
 
   release:
     runs-on: ubuntu-latest
@@ -114,6 +114,8 @@ jobs:
         with:
           name: flat_assets
           path: assets
+      - name: Rename assets dir
+        run: mv assets "assets-$(git describe --always --dirty --broken)"
       - name: Upload skinpack
         uses: actions/upload-artifact@v4
         with:

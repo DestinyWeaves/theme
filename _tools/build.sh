@@ -12,7 +12,7 @@ bundle exec jekyll build
 "$SCRIPT_DIR/flat_assets.sh" _site "${asset_url_prefix}"
 
 cybertron build \
-  --name "${theme_name}-${theme_variant}" \
+  --name "${theme_name} ${theme_variant} $(git describe --always --dirty --broken)" \
   --stylesheet "_site/assets/css/just-the-docs-${theme_variant}.css" \
   --wrapper "_site/wrapper.html" \
   --templates-folder "_site/html-templates/" \
