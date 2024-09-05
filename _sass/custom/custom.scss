@@ -1,3 +1,2 @@
-div#logostrip {
-    display: none
-}
+@use 'nologostrip';
+@use 'copyright';
