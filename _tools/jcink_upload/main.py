@@ -7,6 +7,7 @@ import os
 from selenium import webdriver
 from jcink.adminpanel import AdminPanel
 from jcink.filemanager import FileManager
+from jcink.skinmanager import SkinManager
 
 def environ_or_required(key):
     return (
@@ -31,6 +32,7 @@ driver = webdriver.Firefox()
 driver.implicitly_wait(1)
 ap = AdminPanel(driver, args.admin_url)
 fm = FileManager(ap)
+sm = SkinManager(ap)
 
 def fully_split_path(winpath:str):
     components = []
@@ -54,3 +56,7 @@ with ap.login(args.admin_user, args.admin_pass):
             dst_file = "/".join((dst_root, file))
             log.info("upload %s -> %s", src_file, dst_file)
             fm.upload_file(src_file, dst_root)
+    
+    for skin in args.skin:
+        sm.create_new(skin)
+    

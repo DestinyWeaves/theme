@@ -14,7 +14,7 @@ mkdir -p "${site_path}/files/assets_${ver_slug}"
 for filename in ${site_path}/assets/**/*.@(js|css|jpg|png); do
     orig_name="${filename/#$site_path\/assets\/}"
     flat_name="${orig_name}"
-    # flat_name="${flat_name//\//__}"
+    flat_name="${flat_name//\//__}"
     flat_name="${flat_name//-/_}"
 
 
