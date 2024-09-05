@@ -25,6 +25,7 @@ parser.add_argument('--assets-root', default=os.curdir)
 parser.add_argument('--admin-url', **environ_or_required('JCINK_ADMINURL'))
 parser.add_argument('--admin-user', **environ_or_required('JCINK_USERNAME'))
 parser.add_argument('--admin-pass', **environ_or_required('JCINK_PASSWORD'))
+parser.add_argument('--remote-driver', default=None) # http://127.0.0.1:4444/wd/hub
 args = parser.parse_args()
 
 
@@ -38,7 +39,12 @@ def fully_split_path(winpath:str):
 options = Options()
 options.headless = True
 
-with webdriver.Firefox(options=options) as driver:
+if args.remote_driver:
+    wd = webdriver.Remote(command_executor=args.remote_driver)
+else:
+    wd = webdriver.Firefox()
+
+with wd as driver:
     driver.set_page_load_timeout(10)
     driver.implicitly_wait(1)
     ap = AdminPanel(driver, args.admin_url)
