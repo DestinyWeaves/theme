@@ -26,6 +26,6 @@ for filename in ${site_path}/assets/**/*.@(js|css|jpg|png); do
     asset_name="${url_prefix}/assets_${ver_slug}/${flat_name}"
 
     # replace the generated links with links to the flattened asset location
-    find "${site_path}" -type f -exec sed -i "s#${rlink_name}#${asset_name}#" {} +
+    find "${site_path}" -type f -exec grep -l "$2" {} \; -exec sed -i "s#${rlink_name}#${asset_name}#" {} +
 
 done
