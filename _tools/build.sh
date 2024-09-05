@@ -1,20 +1,23 @@
 #!/bin/bash
 set -e -x
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 asset_url_prefix="https://files.jcink.net/uploads2/ajmansfieldtestboard/assets"
 theme_name=JustTheDocs
 theme_variant=dark
 
 bundle exec jekyll build
 
-./flat_assets.sh _site "${asset_url_prefix}"
+"$SCRIPT_DIR/flat_assets.sh" _site "${asset_url_prefix}"
 
 cybertron build \
   --name "${theme_name}-${theme_variant}" \
-  --macros-folder "_site/macros" \
   --stylesheet "_site/assets/css/just-the-docs-${theme_variant}.css" \
-  --templates-folder "_site/html-templates" \
-  --wrapper "_site/wrapper.html"
+  --wrapper "_site/wrapper.html" \
+  --templates-folder "_site/html-templates/" \
+  --macros-folder "_site/macros/" \
+  --output-directory "_site/"
 
 # server_path=../ajmansfieldtestboard
 # artifact_path=$server_path/artifact/

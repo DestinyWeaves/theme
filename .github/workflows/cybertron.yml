@@ -43,7 +43,7 @@ jobs:
           name: site
           path: _site
       - name: Flatten assets
-        run: ./flat_assets.sh _site "${{ vars.asset_url_prefix }}"
+        run: ./_tools/flat_assets.sh _site "${{ vars.asset_url_prefix }}"
       - name: Upload flattened assets
         uses: actions/upload-artifact@v4
         with:
@@ -86,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: skin-${{ matrix.theme_variant }}
-          path: "${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
+          path: "_site/${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
 
   release:
     runs-on: ubuntu-latest
