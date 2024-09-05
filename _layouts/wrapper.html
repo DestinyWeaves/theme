@@ -2,7 +2,13 @@
 layout: default
 ---
 <div id="wrapper">
-
-  {{ content }}
-
+  <% BOARD HEADER %>
+  <div id="innerwrapper">
+    <div id="navi"><% NAVIGATION %></div>
+    <% DSHOUTBOX %> 
+    {{ content }}
+    <% BOARD %>
+    <div id="skin-selector"><% SKIN_SELECTOR %></div>
+    <% COPYRIGHT %>
+  </div>
 </div>
