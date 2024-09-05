@@ -1,6 +1,6 @@
 theme: just-the-docs
 color_scheme: dark
-url: https://files.jcink.net/uploads2/ajmansfieldtestboard
+url: https://destinyweaves.jcink.net/
 plugins:
   - jekyll-default-layout
   - jekyll-remote-theme
