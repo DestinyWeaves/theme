@@ -36,11 +36,11 @@ def fully_split_path(winpath:str):
         components.insert(0, component)
     return components
 
-options = Options()
-options.headless = True
-
 if args.remote_driver:
-    wd = webdriver.Remote(command_executor=args.remote_driver)
+    wd = webdriver.Remote(
+        command_executor=args.remote_driver,
+        options=webdriver.FirefoxOptions(),
+    )
 else:
     wd = webdriver.Firefox()
 
