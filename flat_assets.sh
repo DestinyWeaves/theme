@@ -10,7 +10,9 @@ mkdir -p "${site_path}/flat"
 
 for filename in ${site_path}/assets/**/*.@(js|css|jpg|png); do
     orig_name="${filename/#$site_path\/assets\/}"
-    flat_name="${orig_name//\//__}"
+    flat_name="${orig_name}"
+    flat_name="${flat_name//\//__}"
+    flat_name="${flat_name//-/_}"
 
     # copy to the flattened asset location
     cp "${filename}" "${site_path}/flat/${flat_name}"
