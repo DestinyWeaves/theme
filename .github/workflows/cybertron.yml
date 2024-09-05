@@ -80,7 +80,7 @@ jobs:
           --name "${{ vars.theme_name }}-${{ matrix.theme_variant }}"
           --macros-folder "_site/macros"
           --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
-          --templates-folder "_site/templates"
+          --templates-folder "_site/html-templates"
           --wrapper "_site/wrapper.html"
       - name: Upload skin xml
         uses: actions/upload-artifact@v4
