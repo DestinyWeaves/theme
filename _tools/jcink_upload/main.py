@@ -27,13 +27,6 @@ parser.add_argument('--admin-pass', **environ_or_required('JCINK_PASSWORD'))
 args = parser.parse_args()
 
 
-driver = webdriver.Firefox()
-# driver.set_page_load_timeout(10)
-driver.implicitly_wait(1)
-ap = AdminPanel(driver, args.admin_url)
-fm = FileManager(ap)
-sm = SkinManager(ap)
-
 def fully_split_path(winpath:str):
     components = []
     while winpath:
@@ -41,22 +34,29 @@ def fully_split_path(winpath:str):
         components.insert(0, component)
     return components
 
-with ap.login(args.admin_user, args.admin_pass):
-    for root, dirs, files in os.walk(args.assets):
-        src_root = os.path.abspath(root)
-        dst_root = "/" + "/".join(fully_split_path(os.path.relpath(root, args.assets_root)))
+with webdriver.Firefox() as driver:
+    driver.set_page_load_timeout(10)
+    driver.implicitly_wait(1)
+    ap = AdminPanel(driver, args.admin_url)
+    fm = FileManager(ap)
+    sm = SkinManager(ap)
 
-        log.info("mkdir %s -> %s", src_root, dst_root)
-        try:
-            fm.mkdir(dst_root)
-        except FileExistsError:
-            log.warning("folder already exists")
-        for file in files:
-            src_file = os.path.join(src_root, file)
-            dst_file = "/".join((dst_root, file))
-            log.info("upload %s -> %s", src_file, dst_file)
-            fm.upload_file(src_file, dst_root)
-    
-    for skin in args.skin:
-        sm.create_new(skin)
+    with ap.login(args.admin_user, args.admin_pass):
+        for root, dirs, files in os.walk(args.assets):
+            src_root = os.path.abspath(root)
+            dst_root = "/" + "/".join(fully_split_path(os.path.relpath(root, args.assets_root)))
+
+            log.info("mkdir %s -> %s", src_root, dst_root)
+            try:
+                fm.mkdir(dst_root)
+            except FileExistsError:
+                log.warning("folder already exists")
+            for file in files:
+                src_file = os.path.join(src_root, file)
+                dst_file = "/".join((dst_root, file))
+                log.info("upload %s -> %s", src_file, dst_file)
+                fm.upload_file(src_file, dst_root)
+        
+        for skin in args.skin:
+            sm.create_new(skin)
     
