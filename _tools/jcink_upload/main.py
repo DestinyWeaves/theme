@@ -11,8 +11,6 @@ from jcink.skinmanager import SkinManager
 
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.utils import ChromeType
 from selenium import webdriver
 
 
@@ -45,7 +43,6 @@ def fully_split_path(winpath:str):
 
 
 
-chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
 
 chrome_options = Options()
 options = [
@@ -60,7 +57,7 @@ options = [
 for option in options:
     chrome_options.add_argument(option)
 
-wd = webdriver.Chrome(service=chrome_service, options=chrome_options)
+wd = webdriver.Chrome(options=chrome_options)
 
 
 
