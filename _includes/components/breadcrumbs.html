@@ -1,18 +1,1 @@
-{% capture nav_id %}nav-{% increment nav_count %}{% endcapture %}
-<nav aria-label="Breadcrumb" class="breadcrumb-nav" id="{{nav_id}}"><% NAVIGATION %></nav>
-<script>
-  {
-    const nav = document.querySelector("#{{nav_id}}");
-    const strip = nav.querySelector("#navstrip");
-    const links = strip.querySelectorAll("a");
-    const navlist = document.createElement("ol");
-    navlist.className="breadcrumb-nav-list";
-    links.forEach(link => {
-      const navitem = document.createElement("li");
-      navitem.className="breadcrumb-nav-list-item";
-      navitem.appendChild(link);
-      navlist.appendChild(navitem);
-    });
-    nav.replaceChildren(navlist);
-  }
-</script>
+<nav aria-label="Breadcrumb" class="breadcrumb-nav" onload="jcink_reflow_nav(this)"><% NAVIGATION %></nav>
