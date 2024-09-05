@@ -5,6 +5,7 @@ log = logging.getLogger("")
 
 import os
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from jcink.adminpanel import AdminPanel
 from jcink.filemanager import FileManager
 from jcink.skinmanager import SkinManager
@@ -34,7 +35,10 @@ def fully_split_path(winpath:str):
         components.insert(0, component)
     return components
 
-with webdriver.Firefox() as driver:
+options = Options()
+options.headless = True
+
+with webdriver.Firefox(options=options) as driver:
     driver.set_page_load_timeout(10)
     driver.implicitly_wait(1)
     ap = AdminPanel(driver, args.admin_url)
