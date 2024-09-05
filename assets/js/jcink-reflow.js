@@ -1,6 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", function() {
-  document.querySelectorAll(".jcink-reflow-nav").forEach(nav => {
+  document.querySelectorAll(".jcink-reflow-breadcrumbs").forEach(nav => {
     const strip = nav.querySelector("#navstrip");
     const links = strip.querySelectorAll("a");
     const navlist = document.createElement("ol");
@@ -12,6 +12,5 @@ document.addEventListener("DOMContentLoaded", function() {
       navlist.appendChild(navitem);
     });
     nav.replaceChildren(navlist);
-    nav.classList.remove(".jcink-reflow-nav");
   });
 });
