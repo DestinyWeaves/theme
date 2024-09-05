@@ -4,11 +4,18 @@ logging.basicConfig(level = logging.INFO)
 log = logging.getLogger("")
 
 import os
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
+
 from jcink.adminpanel import AdminPanel
 from jcink.filemanager import FileManager
 from jcink.skinmanager import SkinManager
+
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
+from selenium import webdriver
+
+
 
 def environ_or_required(key):
     return (
@@ -25,8 +32,8 @@ parser.add_argument('--assets-root', default=os.curdir)
 parser.add_argument('--admin-url', **environ_or_required('JCINK_ADMINURL'))
 parser.add_argument('--admin-user', **environ_or_required('JCINK_USERNAME'))
 parser.add_argument('--admin-pass', **environ_or_required('JCINK_PASSWORD'))
-parser.add_argument('--remote-driver', default=None) # http://127.0.0.1:4444/wd/hub
 args = parser.parse_args()
+
 
 
 def fully_split_path(winpath:str):
@@ -36,13 +43,26 @@ def fully_split_path(winpath:str):
         components.insert(0, component)
     return components
 
-if args.remote_driver:
-    wd = webdriver.Remote(
-        command_executor=args.remote_driver,
-        options=webdriver.FirefoxOptions(),
-    )
-else:
-    wd = webdriver.Firefox()
+
+
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
+
+chrome_options = Options()
+options = [
+    "--headless",
+    "--disable-gpu",
+    "--window-size=1920,1200",
+    "--ignore-certificate-errors",
+    "--disable-extensions",
+    "--no-sandbox",
+    "--disable-dev-shm-usage"
+]
+for option in options:
+    chrome_options.add_argument(option)
+
+wd = webdriver.Chrome(service=chrome_service, options=chrome_options)
+
+
 
 with wd as driver:
     driver.set_page_load_timeout(10)
