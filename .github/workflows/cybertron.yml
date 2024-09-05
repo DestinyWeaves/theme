@@ -126,7 +126,7 @@ jobs:
           path: pack/
     
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: selenium/standalone-firefox
     needs: release
     steps:
       - name: Checkout
