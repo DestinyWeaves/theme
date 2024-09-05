@@ -1,7 +1,8 @@
 #!/bin/bash
-set -e -x
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+set -e -x
 
 asset_url_prefix="https://files.jcink.net/uploads2/ajmansfieldtestboard"
 theme_name=just-the-docs

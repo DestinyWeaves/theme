@@ -9,17 +9,18 @@ ver_name="$3"
 
 ver_slug="${ver_name//-/_}"
 
-mkdir -p "${site_path}/flat/assets_${ver_slug}"
+mkdir -p "${site_path}/files/assets_${ver_slug}"
 
 for filename in ${site_path}/assets/**/*.@(js|css|jpg|png); do
     orig_name="${filename/#$site_path\/assets\/}"
     flat_name="${orig_name}"
-    flat_name="${flat_name//\//__}"
+    # flat_name="${flat_name//\//__}"
     flat_name="${flat_name//-/_}"
 
 
     # copy to the flattened asset location
-    cp "${filename}" "${site_path}/flat/assets_${ver_slug}/${flat_name}"
+    mkdir -p "$(dirname "${site_path}/files/assets_${ver_slug}/${flat_name}")"
+    cp "${filename}" "${site_path}/files/assets_${ver_slug}/${flat_name}"
 
     rlink_name="/assets/${orig_name}"
     asset_name="${url_prefix}/assets_${ver_slug}/${flat_name}"
