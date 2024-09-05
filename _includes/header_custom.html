@@ -1,9 +1,12 @@
-<div id="searchbar">
-  <div class="search-container">
+{% capture search_placeholder %}{% include search_placeholder_custom.html %}{% endcapture %}
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
     <form action="index.php?act=Search&amp;CODE=01" method="post">
       <input type="hidden" name="forums" value="all">
-      <input type="text" name="keywords" class="search-input" onfocus="this.value=''" value="Search...">
-      <input type="submit" class="search-button">
+      <input type="text" name="keywords" id="search-input" class="search-input" tabindex="0" placeholder="{{ search_placeholder | strip_html | strip }}" aria-label="{{ search_placeholder | strip_html| strip }}" autocomplete="off">
+      <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
     </form>
   </div>
+  <div id="search-results" class="search-results"></div>
 </div>
