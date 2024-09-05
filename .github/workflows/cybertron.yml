@@ -83,7 +83,7 @@ jobs:
           --templates-folder "_site/html-templates"
           --wrapper "_site/wrapper.html"
       - name: Normalize skin filename
-        run: mv "${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken)" "${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
+        run: mv "${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken).xml" "${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
       - name: Upload skin xml
         uses: actions/upload-artifact@v4
         with:
