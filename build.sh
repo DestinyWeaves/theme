@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e -x
+
 asset_url_prefix="https://files.jcink.net/uploads2/ajmansfieldtestboard/assets"
 theme_name=DestinyWeaves
 theme_variant=dark
