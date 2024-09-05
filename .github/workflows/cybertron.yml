@@ -82,11 +82,13 @@ jobs:
           --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
           --templates-folder "_site/html-templates"
           --wrapper "_site/wrapper.html"
+      - name: Normalize skin filename
+        run: mv "${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken)" "${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
       - name: Upload skin xml
         uses: actions/upload-artifact@v4
         with:
           name: skin-${{ matrix.theme_variant }}
-          path: "_site/${{ vars.theme_name }} ${{ matrix.theme_variant }} *.xml"
+          path: "_site/${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
 
   release:
     runs-on: ubuntu-latest
