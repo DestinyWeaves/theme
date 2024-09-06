@@ -168,6 +168,8 @@ jobs:
           --skin pack/*default*.xml
           --skin pack/*dark*.xml
           --skin pack/*light*.xml
+          --obsolete-version v0.1.0
+          --obsolete-version v0.1.1
         env:
           JCINK_ADMINURL: ${{ secrets.JCINK_ADMINURL }}
           JCINK_USERNAME: ${{ secrets.JCINK_USERNAME }}
