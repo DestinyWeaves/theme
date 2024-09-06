@@ -14,7 +14,7 @@ def find_candidate_upgrade(ver:str, obsolete:list[str]=[]):
     cmd.append(ver)
     return subprocess.run(cmd, capture_output=True).stdout.decode().strip().split("~",1)[0].split("^",1)[0]
 
-def calc_upgrade_path(skin_matches:list[re.Match], obsolete:list[str]=[]) -> tuple[dict[str,str], set[str]]:
+def calc_upgrade_path(skin_matches:list[re.Match], obsolete:list[str]=[], discard_unavail=True, discard_noop=True) -> tuple[dict[str,str], set[str]]:
     '''
     :param obsolete: list of tags that should be discarded even if good
     :return 0: dictionary of upgrades to make
@@ -38,29 +38,31 @@ def calc_upgrade_path(skin_matches:list[re.Match], obsolete:list[str]=[]) -> tup
         skin_name_regex.match(v).group("version") for v in versions
     }
 
-    # Remove upgrades to versions that aren't available on the site.
-    some_deleted = True
-    while some_deleted:
-        some_deleted = False
-        for k,v in list(upgrade_path.items()):
-            if v not in upgrade_path:
-                log.warning("can't find target: %s => %s", k, v)
-                del upgrade_path[k]
-                some_deleted = True
+    if discard_unavail:
+        # Remove upgrades to versions that aren't available on the site.
+        some_deleted = True
+        while some_deleted:
+            some_deleted = False
+            for k,v in list(upgrade_path.items()):
+                if v not in upgrade_path:
+                    log.warning("can't find target: %s => %s", k, v)
+                    del upgrade_path[k]
+                    some_deleted = True
 
-    # Remove upgrades from a version to itself.
-    for k,v in list(upgrade_path.items()):
-        if k == v:
-            del upgrade_path[k]
+    if discard_noop:
+        # Remove upgrades from a version to itself.
+        for k,v in list(upgrade_path.items()):
+            if k == v:
+                del upgrade_path[k]
     
-    some_modified = True
-    while some_modified:
-        some_modified = False
-        for v in list(versions):
-            if v in upgrade_path:
-                versions.remove(v)
-                versions.push(upgrade_path[v])
-                some_modified = True
+        some_modified = True
+        while some_modified:
+            some_modified = False
+            for v in list(versions):
+                if v in upgrade_path:
+                    versions.remove(v)
+                    versions.add(upgrade_path[v])
+                    some_modified = True
     
     end_hashes = {
         skin_name_regex.match(v).group("version") for v in versions

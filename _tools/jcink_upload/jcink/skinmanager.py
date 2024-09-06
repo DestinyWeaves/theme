@@ -16,7 +16,6 @@ class SkinManager:
         self.driver = ap.driver
         self.ap = ap
 
-    
     def create_new(self, skinset_file):
         self.ap.nav_to_section("Manage Skin Sets")
 
@@ -24,34 +23,42 @@ class SkinManager:
             form = self.driver.find_element(By.NAME, "uploadform")
             try:
                 form.find_element(By.NAME, "FILE_UPLOAD").send_keys(os.path.abspath(skinset_file))
+                form.find_element(By.CSS_SELECTOR, "#button").click()
             except StaleElementReferenceException:
                 continue
             break
-        form.find_element(By.CSS_SELECTOR, "#button").click()
 
-        result_text = self.driver.find_element(By.CSS_SELECTOR, "#description").text
+        while True:
+            try:
+                result_text = self.driver.find_element(By.CSS_SELECTOR, "#description").text
+            except StaleElementReferenceException:
+                continue
+            break
         log.info("result %s", result_text)
         if result_text != "The action was executed successfully":
             raise Exception(result_text)
     
     def cleanup_skin_component(self, page_name:str, unallocated_table_name:str):
         self.ap.nav_to_section(page_name)
-
         while True:
-            tables = self.driver.find_elements(By.CLASS_NAME, "tableborder")
             try:
-                table_candidates = tuple(t for t in tables if t.find_element(By.CLASS_NAME, "maintitle").text == unallocated_table_name)
+                while True:
+                    tables = self.driver.find_elements(By.CLASS_NAME, "tableborder")
+                    table_candidates = tuple(t for t in tables if t.find_element(By.CLASS_NAME, "maintitle").text == unallocated_table_name)
+                
+                    if table_candidates:
+                        table, = table_candidates
+                    else:
+                        break
+                
+                    table.find_element(By.LINK_TEXT, "Remove").click()
+                    # time.sleep(0.1)
+                    self.driver.switch_to.alert.accept()
+                    time.sleep(0.5)
+
             except StaleElementReferenceException:
                 continue
-            
-            if table_candidates:
-                table, = table_candidates
-            else:
-                break
-            
-            table.find_element(By.LINK_TEXT, "Remove").click()
-            self.driver.switch_to.alert.accept()
-            time.sleep(0.5)
+            break
 
     def cleanup_wrappers(self):
         return self.cleanup_skin_component("Board Wrappers", "Current Unallocated Wrappers")
@@ -75,21 +82,25 @@ class SkinManager:
         pattern = re.compile(pattern)
         self.ap.nav_to_section("Manage Skin Sets")
         
-        tables = self.driver.find_elements(By.CLASS_NAME, "tableborder")
-        used_table_candidates = tuple(t for t in tables if t.find_element(By.CLASS_NAME, "maintitle").text == "Current Skins Used by Members")
-        if used_table_candidates:
-            table, = used_table_candidates
-            used_list = list(self.extract_skin_names_from_table(pattern, table))
-        else:
-            used_list = []
+        while True:
+            tables = self.driver.find_elements(By.CLASS_NAME, "tableborder")
+            try:
+                used_table_candidates = tuple(t for t in tables if t.find_element(By.CLASS_NAME, "maintitle").text == "Current Skins Used by Members")
+                if used_table_candidates:
+                    table, = used_table_candidates
+                    used_list = list(self.extract_skin_names_from_table(pattern, table))
+                else:
+                    used_list = []
             
-        tables = self.driver.find_elements(By.CLASS_NAME, "tableborder")
-        notused_table_candidates = tuple(t for t in tables if t.find_element(By.CLASS_NAME, "maintitle").text == "Skin Sets not used by Members")
-        if notused_table_candidates:
-            table, = notused_table_candidates
-            notused_list = list(self.extract_skin_names_from_table(pattern, table))
-        else:
-            notused_list = []
+                notused_table_candidates = tuple(t for t in tables if t.find_element(By.CLASS_NAME, "maintitle").text == "Skin Sets not used by Members")
+                if notused_table_candidates:
+                    table, = notused_table_candidates
+                    notused_list = list(self.extract_skin_names_from_table(pattern, table))
+                else:
+                    notused_list = []
+            except StaleElementReferenceException:
+                continue
+            break
 
         return used_list + notused_list
     
@@ -105,33 +116,50 @@ class SkinManager:
     def upgrade_skin(self, orig:str, new:str, dry_run=False):
         self.ap.nav_to_section("Manage Skin Sets")
 
-        self.driver.find_element(By.NAME, "oid").send_keys(orig)
-        self.driver.find_element(By.NAME, "nid").send_keys(new)
-        if dry_run:
-            log.info("dry_run: would have upgraded from '%s' to '%s'", orig, new)
-            return
-        self.driver.find_element(By.CSS_SELECTOR, '[value="Update members skin choice"]').click()
+        while True:
+            try:
+                self.driver.find_element(By.NAME, "oid").send_keys(orig)
+                self.driver.find_element(By.NAME, "nid").send_keys(new)
+                if dry_run:
+                    log.info("dry_run: would have upgraded from '%s' to '%s'", orig, new)
+                    return
+                self.driver.find_element(By.CSS_SELECTOR, '[value="Update members skin choice"]').click()
+            except StaleElementReferenceException:
+                continue
+            break
 
-        result_text = self.driver.find_element(By.CSS_SELECTOR, "#description").text
+        while True:
+            try:
+                result_text = self.driver.find_element(By.CSS_SELECTOR, "#description").text
+            except StaleElementReferenceException:
+                continue
+            break
         log.info("result %s", result_text)
         if result_text != "The action was executed successfully":
             raise Exception(result_text)
         
     def delete_skin(self, skin:str, dry_run=False):
         self.ap.nav_to_section("Manage Skin Sets")
-        
-        tables = self.driver.find_elements(By.CLASS_NAME, "tableborder")
-        table_candidates = tuple(t for t in tables if t.find_element(By.CLASS_NAME, "maintitle").text == "Skin Sets not used by Members")
-        table, = table_candidates
-        name_cell_candidates = tuple(c for c in table.find_elements(By.CSS_SELECTOR, 'td.tdrow1 b') if c.text==skin)
-        name_cell, = name_cell_candidates
-        row = name_cell.find_element(By.XPATH, "../..")
-        remove_link = row.find_element(By.LINK_TEXT, "Remove")
 
-        if dry_run:
-            log.info("dry_run: would remove %s", skin)
-            return
-        
-        remove_link.click()
-        self.driver.switch_to.alert.accept()
-        time.sleep(0.5)
+        while True:
+            try:
+                tables = self.driver.find_elements(By.CLASS_NAME, "tableborder")
+                table_candidates = tuple(t for t in tables if t.find_element(By.CLASS_NAME, "maintitle").text == "Skin Sets not used by Members")
+                table, = table_candidates
+                name_cell_candidates = tuple(c for c in table.find_elements(By.CSS_SELECTOR, 'td.tdrow1 b') if c.text==skin)
+                name_cell, = name_cell_candidates
+                row = name_cell.find_element(By.XPATH, "../..")
+                remove_link = row.find_element(By.LINK_TEXT, "Remove")
+
+                if dry_run:
+                    log.info("dry_run: would remove %s", skin)
+                    return
+                
+                remove_link.click()
+                # time.sleep(0.1)
+                self.driver.switch_to.alert.accept()
+                time.sleep(0.5)
+
+            except StaleElementReferenceException:
+                continue
+            break
