@@ -18,6 +18,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 
 from urllib.parse import urljoin
+from urllib.request import Request
 from urllib.robotparser import RobotFileParser
 
 
@@ -44,12 +45,20 @@ args = parser.parse_args()
 
 
 
-robots_parser = RobotFileParser(urljoin(args.admin_url, "/robots.txt", allow_fragments=False))
-robots_parser.read()
-assert robots_parser.can_fetch(args.user_agent, args.admin_url), "Our user agent has been blocked by robots.txt!"
-crawl_delay = robots_parser.crawl_delay(args.user_agent)
-if crawl_delay is not None:
-    assert crawl_delay <= 10, "Need to reconfigure timing, the crawl delay has changed!"
+
+def check_robots(args):
+    url = urljoin(args.admin_url, "/robots.txt", allow_fragments=False)
+    parser = RobotFileParser(url)
+    parser.url = Request(url)
+    parser.url.add_header("User-Agent", args.user_agent)
+    parser.read()
+
+    assert parser.can_fetch(args.user_agent, args.admin_url), "Our user agent has been blocked by robots.txt!"
+    crawl_delay = parser.crawl_delay(args.user_agent)
+    if crawl_delay is not None:
+        assert crawl_delay <= 10, "Need to reconfigure timing, the crawl delay has changed!"
+
+check_robots(args)
 
 
 
