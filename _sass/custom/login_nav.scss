@@ -1,9 +1,7 @@
+// Breadcrumb nav
 @import "./support/support";
-
 .login-nav {
   flex-grow: 1;
-  display: flex;
-  height: 100%;
   align-items: center;
   padding-top: $sp-3;
   padding-bottom: $sp-3;
@@ -11,7 +9,7 @@
 
   @include container;
 
-  @include fs-4;
+  @include fs-3;
 
   @include mq(md) {
     padding-top: $sp-2;
@@ -48,6 +46,7 @@
 
   &:last-child {
     &::after {
+      display: none;
       content: "";
     }
   }
