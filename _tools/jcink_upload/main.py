@@ -93,5 +93,6 @@ with wd as driver:
 
         if args.upgrade_regex:
             upgrade_regex = re.compile(args.upgrade_regex)
-            skinupgrade.upgrade_all_skins(sm, fm, upgrade_regex, obsolete=args.obsolete_version)
+            obsolete = args.obsolete_version or []
+            skinupgrade.upgrade_all_skins(sm, fm, upgrade_regex, obsolete=obsolete)
     
