@@ -171,6 +171,7 @@ jobs:
           --skin pack/*light*.xml
           --obsolete-version v0.1.0
           --obsolete-version v0.1.1
+          --obsolete-version v0.1.2
         env:
           JCINK_ADMINURL: ${{ secrets.JCINK_ADMINURL }}
           JCINK_USERNAME: ${{ secrets.JCINK_USERNAME }}
