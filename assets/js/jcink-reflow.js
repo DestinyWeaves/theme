@@ -48,9 +48,10 @@ document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
     list_item.appendChild(list_link);
     info_list.appendChild(list_item);
   });
-  sidebar.appendChild(info_list);
+  // sidebar.appendChild(info_list);
 
-  const ctrl_list = document.createElement("ul");
+  // const ctrl_list = document.createElement("ul");
+  const ctrl_list = info_list;
   ctrl_list.className = "login-nav-list";
   [["#my-controls","Controls"],["#view-new-posts","New Posts"],["#my-friends","Friends"]].forEach(x => {
     const [query,label] = x;
@@ -61,9 +62,10 @@ document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
     list_item.appendChild(list_link);
     ctrl_list.appendChild(list_item);
   });
-  sidebar.append(ctrl_list)
+  // sidebar.append(ctrl_list)
 
-  const alrt_list = document.createElement("ul");
+  // const alrt_list = document.createElement("ul");
+  const alrt_list = info_list;
   alrt_list.className = "login-nav-list";
   ["#x-new-messages","#alerts-indicator","#recent-alerts"].forEach(query => {
     const list_link = old_ctrl.querySelector(query);

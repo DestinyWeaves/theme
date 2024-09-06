@@ -24,17 +24,14 @@
 .login-nav-list {
   padding-left: 0;
   list-style: none;
-  display: inline-block;
-  margin-bottom: 0;
-
-  @include mq(sm) {
-    margin-right: $sp-8;
-    margin-left: $sp-8;
-  }
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: $sp-4;
 }
 
 .login-nav-list-item {
-  display: table-cell;
+  display: inline-block;
   @include fs-2;
 
   &::before {
