@@ -88,8 +88,10 @@ with wd as driver:
                 log.info("upload %s -> %s", src_file, dst_file)
                 fm.upload_file(src_file, dst_root)
         
-        for skin in args.skin:
-            sm.create_new(skin)
+        if args.skin:
+            for skin in args.skin:
+                sm.create_new(skin)
+                log.info("create %s", skin)
 
         if args.upgrade_regex:
             upgrade_regex = re.compile(args.upgrade_regex)
