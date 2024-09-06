@@ -1,5 +1,7 @@
 import argparse
 import logging
+import urllib.parse
+import urllib.robotparser
 logging.basicConfig(level = logging.INFO)
 log = logging.getLogger("")
 
@@ -14,6 +16,9 @@ from jcink import skinupgrade
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
+
+from urllib.parse import urljoin
+from urllib.robotparser import RobotFileParser
 
 
 
@@ -34,7 +39,18 @@ parser.add_argument('--admin-user', **environ_or_required('JCINK_USERNAME'))
 parser.add_argument('--admin-pass', **environ_or_required('JCINK_PASSWORD'))
 parser.add_argument('--obsolete-version', action='append')
 parser.add_argument('--upgrade-regex', default=None)#r"^(?P<skin>just-the-docs) (?P<variant>dark|light|default) (?P<version>.*)$")
+parser.add_argument('--user-agent', default="DestinyWeaves Theme Updater (Github Actions)")
 args = parser.parse_args()
+
+
+
+robots_parser = RobotFileParser(urljoin(args.admin_url, "/robots.txt", allow_fragments=False))
+robots_parser.read()
+assert robots_parser.can_fetch(args.user_agent, args.admin_url), "Our user agent has been blocked by robots.txt!"
+crawl_delay = robots_parser.crawl_delay(args.user_agent)
+if crawl_delay is not None:
+    assert crawl_delay <= 10, "Need to reconfigure timing, the crawl delay has changed!"
+
 
 
 
@@ -57,7 +73,7 @@ options = [
     "--disable-extensions",
     "--no-sandbox",
     "--disable-dev-shm-usage",
-    "--user-agent=DestinyWeaves Theme Updater (Github Actions)"
+    f"--user-agent={args.user_agent}",
 ]
 for option in options:
     chrome_options.add_argument(option)
