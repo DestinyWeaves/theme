@@ -4,6 +4,7 @@ name: Compile JCINK Theme using Cybertron
 on:
   push:
     branches: ["main"]
+    tags: v*
 
   workflow_dispatch:
     # Allows you to run this workflow manually from the Actions tab
