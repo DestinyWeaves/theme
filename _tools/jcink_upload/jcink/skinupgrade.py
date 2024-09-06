@@ -58,7 +58,7 @@ def calc_upgrade_path(skin_matches:list[re.Match], obsolete:list[str]=[]) -> tup
         some_modified = False
         for v in list(versions):
             if v in upgrade_path:
-                versions.pop(v)
+                versions.remove(v)
                 versions.push(upgrade_path[v])
                 some_modified = True
     
