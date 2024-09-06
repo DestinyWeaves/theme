@@ -25,34 +25,43 @@ document.querySelectorAll(".jcink-reflow-aux-nav").forEach(div => {
 
 document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
   const table_cells = div.querySelector("#userlinks").querySelectorAll("td");
-  const linfo = table_cells[0];
-  const controls = table_cells[1];
+  const old_info = table_cells[0];
+  const old_controls = table_cells[1];
 
-  // TODO: how does the login info look when a user is logged out?
+  // TODO: guest login box
   
-  const ninfo = document.createElement("div");
-  ninfo.className = "login-nav";
+  const sidebar = document.createElement("div");
+  sidebar.className = "login-nav";
 
-  const ninfo_head = document.createElement("div");
-  ninfo_head.className = "login-nav-head";
-  const user_info = linfo.querySelector("strong");
-  ninfo_head.appendChild(user_info);
-  ninfo.appendChild(ninfo_head);
+  const info_head = document.createElement("div");
+  info_head.className = "login-nav-head";
+  const user_info = old_info.querySelector("strong");
+  info_head.appendChild(user_info);
+  sidebar.appendChild(info_head);
 
-  const ninfo_list = document.createElement("ul");
-  ninfo_list.className = "login-nav-list";
+  const info_list = document.createElement("ul");
+  info_list.className = "login-nav-list";
   ["#log-out", "#admin-link", "#modcp-link"].forEach(query => {
-    const list_link = linfo.querySelector(query);
+    const list_link = old_info.querySelector(query);
     const list_item = document.createElement("li");
     list_item.className = "login-nav-list-item";
-    console.log(list_link);
     list_item.appendChild(list_link);
-    console.log(list_item);
-    ninfo_list.appendChild(list_item);
-    console.log(ninfo_list);
+    info_list.appendChild(list_item);
   });
-  ninfo.appendChild(ninfo_list);
+  sidebar.appendChild(info_list);
 
-  div.insertAdjacentElement('beforebegin', ninfo);
+  const ctrl_list = document.createElement("ul");
+  ctrl_list.className = "login-nav-list";
+  ["#my-controls", "#x-new-messages", "#view-new-posts", "#alerts-indicator", "#recent-alerts", "#my-friends"].forEach(query => {
+    const list_link = old_info.querySelector(query);
+    const list_item = document.createElement("li");
+    list_item.className = "login-nav-list-item";
+    list_item.appendChild(list_link);
+    ctrl_list.appendChild(list_item);
+  });
+  sidebar.append(ctrl_list)
+
+  div.insertAdjacentElement('beforebegin', sidebar);
+
   // div.remove();
 });
