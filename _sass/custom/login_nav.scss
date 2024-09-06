@@ -1,19 +1,31 @@
-// Breadcrumb nav
 @import "./support/support";
+
 .login-nav {
-  text-align: center;
-  display: inline-block;
+  flex-grow: 1;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-top: $sp-3;
+  padding-bottom: $sp-3;
+  color: $body-heading-color;
+
+  @include container;
+
+  @include fs-4;
+
+  @include mq(md) {
+    padding-top: $sp-2;
+    padding-bottom: $sp-2;
+  }
 }
 
 .login-nav-head {
   padding-left: 0;
-  margin-top: $sp-1;
-  margin-bottom: $sp-1;
+  padding-bottom: $sp-1;
 }
 
 .login-nav-list {
   padding-left: 0;
-  margin-bottom: $sp-1;
   list-style: none;
   display: inline-block;
 }
