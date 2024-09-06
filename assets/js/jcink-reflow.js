@@ -13,7 +13,7 @@ document.querySelectorAll(".jcink-reflow-breadcrumbs").forEach(nav => {
 });
 
 document.querySelectorAll(".jcink-reflow-aux-nav").forEach(div => {
-  div.querySelector("#submenu").querySelector("a").forEach(link => {
+  div.querySelector("#submenu").querySelectorAll("a").forEach(link => {
     const navitem = document.createElement("li");
     navitem.className="aux-nav-list-item";
     navitem.appendChild(link);
