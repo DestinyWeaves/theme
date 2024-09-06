@@ -22,3 +22,7 @@ document.querySelectorAll(".jcink-reflow-aux-nav").forEach(div => {
   })
   div.remove();
 });
+
+document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
+
+});
