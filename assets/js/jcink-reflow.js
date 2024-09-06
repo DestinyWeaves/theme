@@ -52,14 +52,27 @@ document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
 
   const ctrl_list = document.createElement("ul");
   ctrl_list.className = "login-nav-list";
-  ["#my-controls", "#x-new-messages", "#view-new-posts", "#alerts-indicator", "#recent-alerts", "#my-friends"].forEach(query => {
+  [["#my-controls","Controls"],["#view-new-posts","New Posts"],["#my-friends","Friends"]].forEach(x => {
+    const [query,label] = x;
     const list_link = old_ctrl.querySelector(query);
+    list_link.textContent = label;
     const list_item = document.createElement("li");
     list_item.className = "login-nav-list-item";
     list_item.appendChild(list_link);
     ctrl_list.appendChild(list_item);
   });
   sidebar.append(ctrl_list)
+
+  const alrt_list = document.createElement("ul");
+  alrt_list.className = "login-nav-list";
+  ["#x-new-messages","#alerts-indicator","#recent-alerts"].forEach(query => {
+    const list_link = old_ctrl.querySelector(query);
+    const list_item = document.createElement("li");
+    list_item.className = "login-nav-list-item";
+    list_item.appendChild(list_link);
+    alrt_list.appendChild(list_item);
+  });
+  sidebar.append(alrt_list)
 
   div.insertAdjacentElement('beforebegin', sidebar);
   div.remove();
@@ -69,7 +82,9 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
   const old_adbox = div.querySelector("table#submenu + div td");
   const adbox = document.createElement("div")
   adbox.className = "googleads";
-  old_adbox.childNodes.forEach(adbox.appendChild)
+  old_adbox.childNodes.forEach(node => {
+    adbox.appendChild(node);
+  });
   div.insertAdjacentElement('beforebegin', adbox);
   div.remove();
 });
