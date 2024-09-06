@@ -11,3 +11,7 @@ document.querySelectorAll(".jcink-reflow-breadcrumbs").forEach(nav => {
   });
   nav.replaceChildren(navlist);
 });
+
+document.querySelectorAll(".jcink-reflow-aux-nav").forEach(div => {
+
+});
