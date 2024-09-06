@@ -56,11 +56,11 @@ options = [
     "--ignore-certificate-errors",
     "--disable-extensions",
     "--no-sandbox",
-    "--disable-dev-shm-usage"
+    "--disable-dev-shm-usage",
+    "--user-agent=DestinyWeaves Theme Updater (Github Actions)"
 ]
 for option in options:
     chrome_options.add_argument(option)
-
 wd = webdriver.Chrome(options=chrome_options)
 
 
