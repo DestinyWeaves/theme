@@ -12,7 +12,7 @@ def find_candidate_upgrade(ver:str, obsolete:list[str]=[]):
     for obver in obsolete:
         cmd.extend(["--exclude", obver])
     cmd.append(ver)
-    return subprocess.run(cmd, capture_output=True).stdout.decode().strip().split("~",1)[0]
+    return subprocess.run(cmd, capture_output=True).stdout.decode().strip().split("~",1)[0].split("^",1)[0]
 
 def calc_upgrade_path(skin_matches:list[re.Match], obsolete:list[str]=[]) -> tuple[dict[str,str], set[str]]:
     '''
