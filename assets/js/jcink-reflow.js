@@ -13,12 +13,15 @@ document.querySelectorAll(".jcink-reflow-breadcrumbs").forEach(nav => {
 });
 
 document.querySelectorAll(".jcink-reflow-aux-nav").forEach(div => {
+  const excluded = ["Home", /*"Help", "Search", "Members",*/ "Calendar", "Shoutbox",];
   div.querySelector("#submenu").querySelectorAll("a").forEach(link => {
-    const navitem = document.createElement("li");
-    navitem.className = "aux-nav-list-item";
-    navitem.appendChild(link);
-    link.className = "site-button";
-    div.insertAdjacentElement('beforebegin', navitem);
+    if (! excluded.includes(link.text)) {
+      const navitem = document.createElement("li");
+      navitem.className = "aux-nav-list-item";
+      navitem.appendChild(link);
+      link.className = "site-button";
+      div.insertAdjacentElement('beforebegin', navitem);
+    }
   })
   div.remove();
 });
@@ -67,7 +70,7 @@ document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
   // const alrt_list = document.createElement("ul");
   const alrt_list = info_list;
   alrt_list.className = "login-nav-list";
-  ["#x-new-messages","#alerts-indicator"/*,"#recent-alerts"*/].forEach(query => {
+  ["#x-new-messages","#alerts-indicator",/*"#recent-alerts",*/].forEach(query => {
     const list_link = old_ctrl.querySelector(query);
     const list_item = document.createElement("li");
     list_item.className = "login-nav-list-item";
