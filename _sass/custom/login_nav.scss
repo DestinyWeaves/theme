@@ -1,7 +1,12 @@
 // Breadcrumb nav
 @import "./support/support";
 .login-nav {
-  flex-grow: 1;
+  display: none;
+
+  &.nav-open {
+    display: inline-block;
+  }
+  
   align-items: center;
   padding-top: $sp-3;
   padding-bottom: $sp-3;
