@@ -62,6 +62,14 @@ document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
   sidebar.append(ctrl_list)
 
   div.insertAdjacentElement('beforebegin', sidebar);
+  div.remove();
+});
 
-  // div.remove();
+document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
+  const old_adbox = div.querySelector("table#submenu + div td");
+  const adbox = document.createElement("div")
+  adbox.className = "googleads";
+  old_adbox.childNodes.forEach(adbox.appendChild)
+  div.insertAdjacentElement('beforebegin', adbox);
+  div.remove();
 });
