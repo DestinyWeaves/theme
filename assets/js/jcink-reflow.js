@@ -32,17 +32,27 @@ document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
   
   const ninfo = document.createElement("div");
   ninfo.className = "login-nav";
+
   const ninfo_head = document.createElement("div");
   ninfo_head.className = "login-nav-head";
+  const user_info = linfo.querySelector("strong");
+  ninfo_head.appendChild(user_info);
   ninfo.appendChild(ninfo_head);
+
   const ninfo_list = document.createElement("ul");
   ninfo_list.className = "login-nav-list";
-  for (let query in ["#log-out", "#admin-link", "#modcp-link"]) {
+  ["#log-out", "#admin-link", "#modcp-link"].forEach(query => {
     const list_link = linfo.querySelector(query);
     const list_item = document.createElement("li");
     list_item.className = "login-nav-list-item";
+    console.log(list_link);
+    list_item.appendChild(list_link);
+    console.log(list_item);
     ninfo_list.appendChild(list_item);
-  }
+    console.log(ninfo_list);
+  });
+  ninfo.appendChild(ninfo_list);
+
   div.insertAdjacentElement('beforebegin', ninfo);
   // div.remove();
 });
