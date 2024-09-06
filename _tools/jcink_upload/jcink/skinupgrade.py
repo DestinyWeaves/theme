@@ -70,9 +70,12 @@ def calc_upgrade_path(skin_matches:list[re.Match], obsolete:list[str]=[], discar
 
     return upgrade_path, (begin_hashes - end_hashes)
 
+def slug_version(ver:str)->str:
+    return ver.replace("-","_").replace(".","x")
+
 def upgrade_all_skins(sm: SkinManager, fm: FileManager, pattern:re.Pattern, obsolete:list[str]=[], dry_run=False, cleanup=True):
     skins = sm.list_skins(pattern)
-    upgrade_path, del_hashes = calc_upgrade_path(skins, obsolete=obsolete)
+    upgrade_path, del_tags = calc_upgrade_path(skins, obsolete=obsolete)
 
     for k,v in upgrade_path.items():
         log.info("%s => %s", k, v)
@@ -84,8 +87,8 @@ def upgrade_all_skins(sm: SkinManager, fm: FileManager, pattern:re.Pattern, obso
     else:
         log.warning("not cleaning up skin components")
         
-    for h in del_hashes:
-        assets_path = f"/assets_{h}"
+    for t in del_tags:
+        assets_path = f"/assets_{slug_version(t)}"
         if cleanup:
             log.info("remove %s", assets_path)
             fm.rm_contents(assets_path, dry_run=dry_run)
