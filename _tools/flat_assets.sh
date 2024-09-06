@@ -7,7 +7,9 @@ site_path="$1"
 url_prefix="$2"
 ver_name="$3"
 
-ver_slug="${ver_name//-/_}"
+ver_slug="${ver_name}"
+ver_slug="${ver_slug//-/_}"
+ver_slug="${ver_slug//./x}"
 
 mkdir -p "${site_path}/files/assets_${ver_slug}"
 
