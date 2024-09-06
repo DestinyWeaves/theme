@@ -10,10 +10,10 @@ theme_variant=dark
 
 bundle exec jekyll build
 
-"$SCRIPT_DIR/flat_assets.sh" _site "${asset_url_prefix}" $(git describe --always --dirty --broken)
+"$SCRIPT_DIR/flat_assets.sh" _site "${asset_url_prefix}" $(git describe --always --dirty --broken --tags)
 
 cybertron build \
-  --name "${theme_name} ${theme_variant} $(git describe --always --dirty --broken)" \
+  --name "${theme_name} ${theme_variant} $(git describe --always --dirty --broken --tags)" \
   --stylesheet "_site/assets/css/just-the-docs-${theme_variant}.css" \
   --wrapper "_site/wrapper.html" \
   --templates-folder "_site/html-templates/" \

@@ -43,7 +43,7 @@ jobs:
           name: site
           path: _site
       - name: Flatten assets
-        run: ./_tools/flat_assets.sh _site "${{ vars.asset_url_prefix }}" $(git describe --always --dirty --broken)
+        run: ./_tools/flat_assets.sh _site "${{ vars.asset_url_prefix }}" $(git describe --always --dirty --broken --tags)
       - name: Upload flattened assets
         uses: actions/upload-artifact@v4
         with:
@@ -77,14 +77,14 @@ jobs:
           # tag: v1.1.0
       - name: Build skin xml
         run: cybertron build
-          --name "${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken)"
+          --name "${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken --tags)"
           --macros-folder "_site/macros"
           --stylesheet "_site/assets/css/just-the-docs-${{ matrix.theme_variant }}.css"
           --templates-folder "_site/html-templates"
           --wrapper "_site/wrapper.html"
           --output-directory "_site/"
       - name: Normalize skin filename
-        run: mv "_site/${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken).xml" "_site/${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
+        run: mv "_site/${{ vars.theme_name }} ${{ matrix.theme_variant }} $(git describe --always --dirty --broken --tags).xml" "_site/${{ vars.theme_name }}-${{ matrix.theme_variant }}.xml"
       - name: Upload skin xml
         uses: actions/upload-artifact@v4
         with:
@@ -152,6 +152,7 @@ jobs:
         run: python _tools/jcink_upload/main.py
           --assets pack/assets_*
           --assets-root pack/
+          --upgrade-regex '^(?P<skin>just-the-docs) (?P<variant>dark|light|default) (?P<version>.*)$'
           --skin pack/*default*.xml
           --skin pack/*dark*.xml
           --skin pack/*light*.xml

@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import time
 
 from contextlib import contextmanager
-from .frame import frame_selected
 
 class AdminPanel:
     def __init__(self, driver:webdriver.Chrome, admin_url:str):
@@ -18,19 +18,26 @@ class AdminPanel:
 
         self.menu_frame = self.driver.find_element(By.NAME, "menu")
         self.body_frame = self.driver.find_element(By.NAME, "body")
-        with frame_selected(self.driver, self.menu_frame):
-            self.driver.find_element(By.LINK_TEXT, "Expand").click()
 
+        self.driver.switch_to.frame(self.menu_frame)
+        self.driver.find_element(By.LINK_TEXT, "Expand").click()
+        self.driver.switch_to.parent_frame()
+
+        self.driver.switch_to.frame(self.body_frame) # while logged in, we are implicitly in the body frame
         try:
             yield self
         finally:
-            pass
+            self.driver.switch_to.parent_frame()
             # TODO explicitly sign out of the admin session
             # self.driver.get(f"https://{hostname}/index.php")
             # logout_link = self.driver.find_element(by=By.CSS_SELECTOR, value="#log-out")
             # logout_link.click()
     
     def nav_to_section(self, page:str):
-        with frame_selected(self.driver, self.menu_frame):
-            self.driver.find_element(By.LINK_TEXT, page).click()
+        self.driver.switch_to.parent_frame() # switch out of body_frame
+        self.driver.switch_to.frame(self.menu_frame)
+        self.driver.find_element(By.LINK_TEXT, page).click()
+        time.sleep(0.1)
+        self.driver.switch_to.parent_frame()
+        self.driver.switch_to.frame(self.body_frame) # back to body_frame
     

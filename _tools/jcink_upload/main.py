@@ -4,10 +4,12 @@ logging.basicConfig(level = logging.INFO)
 log = logging.getLogger("")
 
 import os
+import re
 
 from jcink.adminpanel import AdminPanel
 from jcink.filemanager import FileManager
 from jcink.skinmanager import SkinManager
+from jcink import skinupgrade
 
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -30,6 +32,8 @@ parser.add_argument('--assets-root', default=os.curdir)
 parser.add_argument('--admin-url', **environ_or_required('JCINK_ADMINURL'))
 parser.add_argument('--admin-user', **environ_or_required('JCINK_USERNAME'))
 parser.add_argument('--admin-pass', **environ_or_required('JCINK_PASSWORD'))
+parser.add_argument('--obsolete-version', action='append')
+parser.add_argument('--upgrade-regex', default=None)#r"^(?P<skin>just-the-docs) (?P<variant>dark|light|default) (?P<version>.*)$")
 args = parser.parse_args()
 
 
@@ -86,4 +90,8 @@ with wd as driver:
         
         for skin in args.skin:
             sm.create_new(skin)
+
+        if args.upgrade_regex:
+            upgrade_regex = re.compile(args.upgrade_regex)
+            skinupgrade.upgrade_all_skins(sm, fm, upgrade_regex, obsolete=args.obsolete_version)
     
