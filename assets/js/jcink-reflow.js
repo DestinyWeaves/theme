@@ -23,6 +23,11 @@ document.querySelectorAll(".jcink-reflow-aux-nav").forEach(div => {
   div.remove();
 });
 
+function mk_elem_containing(tag, content) {
+  const elem = document.createElement(tag);
+  elem.appendChild(content);
+  return elem
+}
 document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
   const table_cells = div.querySelector("#userlinks").querySelectorAll("td");
   const login_info = table_cells[0];
@@ -30,10 +35,10 @@ document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
 
   // TODO: how does the login info look when a user is logged out?
   const new_login_info = document.createElement("dl");
-  new_login_info.appendChild(document.createElement("dt").appendChild(login_info.querySelector("strong")));
-  new_login_info.appendChild(document.createElement("dl").appendChild(login_info.querySelector("#log-out")));
-  new_login_info.appendChild(document.createElement("dl").appendChild(login_info.querySelector("#admin-link")));
-  new_login_info.appendChild(document.createElement("dl").appendChild(login_info.querySelector("#modcp-link")));
+  new_login_info.appendChild(mk_elem_containing("dt", login_info.querySelector("strong")));
+  new_login_info.appendChild(mk_elem_containing("dd", login_info.querySelector("#log-out")));
+  new_login_info.appendChild(mk_elem_containing("dd", login_info.querySelector("#admin-link")));
+  new_login_info.appendChild(mk_elem_containing("dd", login_info.querySelector("#modcp-link")));
   div.insertAdjacentElement('beforebegin', new_login_info);
   login_info.remove();
 
