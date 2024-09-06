@@ -1,7 +1,7 @@
 // Breadcrumb nav
 @import "./support/support";
 .login-nav {
-  align-items: center;
+  text-align: center;
   padding-top: $sp-3;
   padding-bottom: $sp-3;
   // color: $body-heading-color;
@@ -26,8 +26,11 @@
   list-style: none;
   display: inline-block;
   margin-bottom: 0;
-  margin-right: $sp-4;
-  margin-left: $sp-4;
+
+  @include mq(sm) {
+    margin-right: $sp-8;
+    margin-left: $sp-8;
+  }
 }
 
 .login-nav-list-item {
