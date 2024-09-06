@@ -26,7 +26,7 @@ document.querySelectorAll(".jcink-reflow-aux-nav").forEach(div => {
 document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
   const table_cells = div.querySelector("#userlinks").querySelectorAll("td");
   const old_info = table_cells[0];
-  const old_controls = table_cells[1];
+  const old_ctrl = table_cells[1];
 
   // TODO: guest login box
   
@@ -53,7 +53,7 @@ document.querySelectorAll(".jcink-reflow-user-sidebar").forEach(div => {
   const ctrl_list = document.createElement("ul");
   ctrl_list.className = "login-nav-list";
   ["#my-controls", "#x-new-messages", "#view-new-posts", "#alerts-indicator", "#recent-alerts", "#my-friends"].forEach(query => {
-    const list_link = old_info.querySelector(query);
+    const list_link = old_ctrl.querySelector(query);
     const list_item = document.createElement("li");
     list_item.className = "login-nav-list-item";
     list_item.appendChild(list_link);
