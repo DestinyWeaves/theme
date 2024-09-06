@@ -189,21 +189,21 @@ class FileManager:
         else:
             raise Exception(result_text)
     
-        while True:
-            table = self.driver.find_element(By.CSS_SELECTOR, "#acp_form .tableborder")
-            try:
-                labels = table.find_elements(By.LINK_TEXT, srcname)
-            except NoSuchElementException as e:
-                raise FileNotFoundError(srcpath) from e
-            except StaleElementReferenceException:
-                continue
-            break
-        rows = [label.find_element(By.XPATH, "../..") for label in labels]
-        urls = [row.find_element(By.NAME, "copy").get_attribute("value") for row in rows]
+        # while True:
+        #     table = self.driver.find_element(By.CSS_SELECTOR, "#acp_form .tableborder")
+        #     try:
+        #         labels = table.find_elements(By.LINK_TEXT, srcname)
+        #     except NoSuchElementException as e:
+        #         raise FileNotFoundError(srcpath) from e
+        #     except StaleElementReferenceException:
+        #         continue
+        #     break
+        # rows = [label.find_element(By.XPATH, "../..") for label in labels]
+        # urls = [row.find_element(By.NAME, "copy").get_attribute("value") for row in rows]
         
-        if len(urls) != 1:
-            raise FileExistsError(f"duplicated files: {urls}")
-        return urls[0]
+        # if len(urls) != 1:
+        #     raise FileExistsError(f"duplicated files: {urls}")
+        # return urls[0]
 
 
 
