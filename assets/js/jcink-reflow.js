@@ -127,7 +127,7 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
     submitbutton.remove();
     post_box.appendChild(submitbutton);
 
-    post_box.id = "";
+    post_box.id = "post_box";
     post_box.setAttribute('align', "");
     post_box.setAttribute('style', "");
     inner_box.className = "";
