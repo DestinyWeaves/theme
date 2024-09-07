@@ -114,24 +114,27 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
     tableborder_div.previousElementSibling.remove(); // random br
     tableborder_div.previousElementSibling.remove(); // add reply / new topic / new poll
     tableborder_div.nextElementSibling.remove(); // random br
-    tableborder_div.nextElementSibling.remove(); // add reply / fast reply / new topic / new poll
-    tableborder_div.replaceWith(...tableborder_div.childNodes); // unwrap
 
-    
+    // do post_box first, if there's an error here we want to leave the add-reply part intact
     const post_box = document.querySelector("#qr_open");
     const inner_box = document.querySelector("#qr_open div.tableborder");
-    post_box.attributes.id = "";
-    post_box.attributes.align = "";
-    post_box.attributes.style = ""; // unhide the fast post box
-    inner_box.attributes.style = "display:none";
-    inner_box.className = "";
 
-    const textinput = document.querySelector('textinput[name="Post"]');
+    const textinput = document.querySelector('textarea[name="Post"]');
     textinput.remove();
     post_box.appendChild(textinput);
 
     const submitbutton = document.querySelector('input[name="submit"]');
     submitbutton.remove();
     post_box.appendChild(submitbutton);
+
+    post_box.id = "";
+    post_box.attributes.align = "";
+    post_box.attributes.style = ""; // unhide the fast post box
+    inner_box.className = "";
+    inner_box.attributes.style = "display:none";
+
+    tableborder_div.nextElementSibling.remove(); // add reply / fast reply / new topic / new poll
+    tableborder_div.replaceWith(...tableborder_div.childNodes); // unwrap
+
   };
 };
