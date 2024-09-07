@@ -102,15 +102,12 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
 
     const post_rows = document.querySelectorAll(".post_row");
     const last_post_row = post_rows[post_rows.length-1];
-    const end_hr = last_post_row.nextElementSibling; // hr
-    end_hr.remove()
     last_post_row.nextElementSibling.remove(); // .activeuserstrip
     last_post_row.nextElementSibling.remove(); // member list
     last_post_row.nextElementSibling.remove(); // .activeuserstrip
     last_post_row.nextElementSibling.remove(); // googlead block
     // TODO: preserve this ad element for TOS reasons
     // TODO: test against paid forum -- does this element still exist?
-    last_post_row.append(end_hr);
     
     const tableborder_div = first_post_row.parentElement;
     tableborder_div.previousElementSibling.remove(); // random br
