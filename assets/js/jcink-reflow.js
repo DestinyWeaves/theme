@@ -102,6 +102,7 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
 
     const post_rows = document.querySelectorAll(".post_row");
     const last_post_row = post_rows[post_rows.length-1];
+    last_post_row.nextElementSibling.remove(); // hr
     last_post_row.nextElementSibling.remove(); // .activeuserstrip
     last_post_row.nextElementSibling.remove(); // member list
     last_post_row.nextElementSibling.remove(); // .activeuserstrip
@@ -113,8 +114,8 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
     tableborder_div.previousElementSibling.remove(); // random br
     tableborder_div.previousElementSibling.remove(); // add reply / new topic / new poll
     tableborder_div.nextElementSibling.remove(); // random br
-    tableborder_div.nextElementSibling.remove(); // add reply / fast reply / new topic / new poll
-    tableborder_div.replaceWith(...tableborder_div.childNodes); // unwrap
-    expMenu('qr_show'); // open the fast reply box (since we removed the link to open it manually)
+    // tableborder_div.nextElementSibling.remove(); // add reply / fast reply / new topic / new poll
+    // tableborder_div.replaceWith(...tableborder_div.childNodes); // unwrap
+    // expMenu('qr_show'); // open the fast reply box (since we removed the link to open it manually)
   }
 };
