@@ -102,7 +102,8 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
 
     const post_rows = document.querySelectorAll(".post_row");
     const last_post_row = post_rows[post_rows.length-1];
-    last_post_row.nextElementSibling.remove(); // hr
+    const end_hr = last_post_row.nextElementSibling; // hr
+    end_hr.remove()
     last_post_row.nextElementSibling.remove(); // .activeuserstrip
     last_post_row.nextElementSibling.remove(); // member list
     last_post_row.nextElementSibling.remove(); // .activeuserstrip
@@ -119,6 +120,8 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
     const post_box = document.querySelector("#qr_open");
     const form = document.querySelector("#qr_open form");
     const inner_box = document.querySelector("#qr_open div.tableborder");
+
+    post_box.insertBefore(end_hr);
 
     const submitbutton = document.querySelector('input[name="submit"]');
     submitbutton.remove();
