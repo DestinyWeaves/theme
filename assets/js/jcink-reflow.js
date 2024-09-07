@@ -133,4 +133,5 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
     const submitbutton = document.querySelector('input[name="submit"]');
     submitbutton.remove();
     post_box.appendChild(submitbutton);
+  };
 };
