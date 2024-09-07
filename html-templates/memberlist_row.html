@@ -1,18 +1,46 @@
 ---
 layout: template
 ---
-<!-- Entry for <!-- |member_name| --> -->
-<tr>
-  <td class='row4 name'><!-- |name| --></td>
-  <td class='row4 level'><!-- |pips| --></td>
-  <td class='row2 group' align="center" width="20%"><!-- |group| --></td>
-  <td class='row4 joined' align="center" width="20%"><!-- |joined| --></td>
- <td class='row4 posts' align="center" width="10%">
-   <a href='index.php?act=Search&CODE=getalluser&mid=<!-- |id| -->&type=posts' title='<!-- |last_post| -->'>
-     <!-- |posts| -->
-   </a>
- </td>
-  <td class='row2 email' align="center"><!-- |email_macro| --></td>
-  <td class='row2 photo' align="center"><!-- |photo_macro| --></td>
- </tr>
-<!-- End of Entry -->
+<div class="memberlist_row gr_<!-- |g_id| --> uid-<!-- |id| --> u<!-- |id| -->">
+  <div class="name"><!-- |name| --></div>
+  <div class="level"><!-- |pips| --></div>
+  <div class="group"><!-- |group| --></div>
+  <div class="joined"><!-- |joined| --></div>
+  <div class="posts">
+    <a href='index.php?act=Search&CODE=getalluser&mid=<!-- |id| -->&type=posts' title='<!-- |last_post| -->'>
+      <!-- |posts| -->
+    </a>
+  </div>
+  <div class="email"><!-- |email_macro| --></div>
+  <div class="photo"><!-- |photo_macro| --></div>
+
+  <div class="memberlist_row_vars" style="display:none">
+    <div class="id"><!-- |id| --></div>
+    <div class="parent_id"><!-- |parent_id| --></div>
+    <div class="g_id"><!-- |g_id| --></div>
+    <div class="avatar"><!-- |avatar| --></div>
+    <div class="avatar_url"><!-- |avatar_url| --></div>
+    <div class="name"><!-- |name| --></div>
+    <div class="member_name"><!-- |member_name| --></div>
+    <div class="prefix"><!-- |prefix| --></div>
+    <div class="suffix"><!-- |suffix| --></div>
+    <div class="group"><!-- |group| --></div>
+    <div class="pips"><!-- |pips| --></div>
+    <div class="photo_macro"><!-- |photo_macro| --></div>
+    <div class="email_macro"><!-- |email_macro| --></div>
+    <div class="title"><!-- |title| --></div>
+    <div class="location"><!-- |location| --></div>
+    <div class="birthday"><!-- |birthday| --></div>
+    <div class="age"><!-- |age| --></div>
+    <div class="website"><!-- |website| --></div>
+    <div class="interests"><!-- |interests| --></div>
+    <div class="joined"><!-- |joined| --></div>
+    <div class="last_activity"><!-- |last_activity| --></div>
+    <div class="last_post"><!-- |last_post| --></div>
+    <div class="posts"><!-- |posts| --></div>
+    <div class="points"><!-- |points| --></div>
+    <div class="pm"><!-- |pm| --></div>
+    <div class="email"><!-- |email| --></div>
+    <div class="website_url"><!-- |website_url| --></div>
+  </div>
+</div>

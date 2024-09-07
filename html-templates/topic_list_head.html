@@ -1,32 +1,19 @@
 ---
 layout: template
 ---
-<div class="tableborder" id="topic-list">
-  <div class='maintitle'>
-    <{CAT_IMG}>&nbsp;
-    <!-- |forum_name| -->
-  </div>
-  
-  <table width='100%' border='0' cellspacing='1' cellpadding='4'>
-    <tr class='topic-subheader'>
-      <td align='center' class='titlemedium'>
-        <img src='style_images/1/spacer.gif' alt='' width='20' height='1' />
-      </td>
-      <td align='center' class='titlemedium'>
-        <img src='style_images/1/spacer.gif' alt='' width='20' height='1' />
-      </td>
-      <th width='45%' align='left' nowrap="nowrap" class='titlemedium'>Topic Title</th>
-      <th width='14%' align='center' nowrap="nowrap" class='titlemedium'>Topic Starter</th>
-      <th width='7%' align='center' nowrap="nowrap" class='titlemedium'>Replies</th>
-      <th width='7%' align='center' nowrap="nowrap" class='titlemedium'>Views</th>
-      <th width='27%' align='left' nowrap="nowrap" class='titlemedium'>Last Action</th>
-      <th width='1%' align='left' nowrap="nowrap" class='titlemedium'></th>
-    </tr>
-
-    <% ANNOUNCEMENTS %>
+<div class="topic_list_head">
+  <div class="forum_name"><!-- |forum_name| --></div>
+  <div class="topic_list_rows">
     <% TOPIC_ROWS %>
-  </table>
-  <!-- |mod_form_end| -->
-  <!-- |forum_active| -->
-  <!-- |sort_options| -->
+  </div>
+  <div class="topic_list_announcements">
+    <% ANNOUNCEMENTS %>
+  </div>
+  <div class="topic_list_head_vars" style="display:none">
+    <div class="forum_id"><!-- |forum_id| --></div>
+    <div class="forum_name"><!-- |forum_name| --></div>
+    <div class="mod_form_end"><!-- |mod_form_end| --></div>
+    <div class="forum_active"><!-- |forum_active| --></div>
+    <div class="sort_options"><!-- |sort_options| --></div>
+  </div>
 </div>

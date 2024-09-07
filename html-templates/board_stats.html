@@ -1,86 +1,40 @@
 ---
 layout: template
 ---
-<div id='quick-login'>
-  <!-- |quick_login| -->
-</div>
-<br />
-<!-- |toplinks| -->
-<br />
-<div class="tableborder" id="boardstats">
-  <div class="maintitle">
-    <span class='bstats-text'>Board Statistics</span>
+<div class="board_stats">
+  <div id='quick_login'>
+    <!-- |quick_login| -->
   </div>
-  <table cellpadding='4' cellspacing='1' border='0' width='100%'>
-    <tr>
-      <td class='pformstrip' colspan='2'> <!-- |total_users| --> user(s) active in the past 60 minutes</td>
-    </tr>
-    <tr>
-      <td width="5%" class='row2'>
-        <{F_ACTIVE}>
-      </td>
-      <td class='row4' width='95%'>
-        <span id='activeusers-stats'>
-          <b><!-- |total_guests| --></b> guests,
-          <b><!-- |total_mems| --></b> members,
-          <b><!-- |total_anons| --></b> anonymous members
-        </span>
-        <div class='thin'><!-- |online_list| --></div>
-        <span id='activeusers-links'>
-          Show detailed by:
-          <a href='index.php?act=Online&amp;CODE=listall&amp;sort_key=click'>Last Click</a>,
-          <a href='index.php?act=Online&amp;CODE=listall&amp;sort_key=name&amp;sort_order=asc&amp;show_mem=reg'>Member
-            Name</a>
-        </span>
-      </td>
-    </tr>
-    <tr>
-      <td class='pformstrip' colspan='2'>Today's Birthdays</td>
-    </tr>
-    <tr>
-      <td class='row4' width='95%'>
-        <b> <!-- |birthdays| --></b> members are celebrating their birthday today<br />
-        <!-- |birthdays_list| -->
-      </td>
-    </tr>
-    <tr>
-      <td class='pformstrip' colspan='2'>Board Statistics</td>
-    </tr>
-    <tr>
-      <td class='row2' width='5%' valign='middle'>
-        <{F_STATS}>
-      </td>
-      <td class='row4' width="95%" align='left'>
-        Our members have made a total of <b>
-          <script>document.write(<!-- |total_posts| -->-forum_posts[4]);</script>
-        </b> posts<br />
-        We have <b><!-- |total_mem_reg| --></b> registered members<br />
-        The newest member is <b><!-- |newest_member| --></b><br />
-        Most users ever online was <b> <!-- |most_online| --></b> on <b><!-- |most_online_date| --></b>
-      </td>
-    </tr>
-    <tr>
-      <td class='pformstrip' colspan='2'>
-        Members Online Today: <!-- |online_today| -->
-        <span id='mot_explink' style='display:none'>[<a href='javascript:expand_mot()'>Expand</a>]</span>
-        <span id='mot_collink' style='display:inline'>[<a href='javascript:collapse_mot()'>Collapse</a>]</span>
-      </td>
-    </tr>
-    <tr id='mot' style='display:inline-compact'>
-      <td class='row2' width='5%' valign='middle'>
-        <{F_STATS}>
-      </td>
-      <td class='row4' width='95%'>
-        <span id='activeusers-mostevertxt'>
-          Most members ever online in one day was <b><!-- |most_online_oneday| --></b>,
-          last accomplished on <b><!-- |most_online_oneday_date| --></b>
-        </span>
-        <br />
-        <br />
-        <span id='activeusers-followingtxt'>The following members have visited today:</span>
-        <br />
-        <!-- |online_today_list| -->
-      </td>
-    </tr>
-  </table>
+  <div class="board_stats_vars" style="display:none">
+    <div class="total_users"><!-- |total_users| --></div>
+    <div class="total_guests"><!-- |total_guests| --></div>
+    <div class="total_anons"><!-- |total_anons| --></div>
+    <div class="total_mems"><!-- |total_mems| --></div>
+    <div class="online_list"><!-- |online_list| --></div>
+    <div class="online_legend"><!-- |online_legend| --></div>
+    <div class="list_links"><!-- |list_links| --></div>
+    <div class="events"><!-- |events| --></div>
+    <div class="events_limit"><!-- |events_limit| --></div>
+    <div class="birthdays"><!-- |birthdays| --></div>
+    <div class="birthdays_list"><!-- |birthdays_list| --></div>
+    <div class="total_posts"><!-- |total_posts| --></div>
+    <div class="total_mem_reg"><!-- |total_mem_reg| --></div>
+    <div class="newest_member"><!-- |newest_member| --></div>
+    <div class="most_online"><!-- |most_online| --></div>
+    <div class="most_online_date"><!-- |most_online_date| --></div>
+    <div class="online_today"><!-- |online_today| --></div>
+    <div class="online_today_list"><!-- |online_today_list| --></div>
+    <div class="most_online_oneday"><!-- |most_online_oneday| --></div>
+    <div class="most_online_oneday_date"><!-- |most_online_oneday_date| --></div>
+    <div class="store_products"><!-- |store_products| --></div>
+    <div class="store_value"><!-- |store_value| --></div>
+    <div class="points_total"><!-- |points_total| --></div>
+    <div class="points_banked"><!-- |points_banked| --></div>
+    <div class="points_circulated"><!-- |points_circulated| --></div>
+    <div class="richest_member"><!-- |richest_member| --></div>
+    <div class="richest_member_total"><!-- |richest_member_total| --></div>
+    <div class="toplinks"><!-- |toplinks| --></div>
+   
+    <div class="member_groups"><!-- |member_groups| --></div>
+  </div>
 </div>

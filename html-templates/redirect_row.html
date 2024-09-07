@@ -1,31 +1,58 @@
 ---
 layout: template
 ---
-<tr class='forum-row'>
-  <td class="row4" align="center">
-    <{BR_REDIRECT}>
-  </td>
-  <td class="row4">
-    <b>
-      <a class="tooltip" tooltip="<!-- |description_clean| -->" href="?showforum=<!-- |forum_id| -->" alt="<!-- |name| -->">
-        <!-- |name| -->
-      </a>
-    </b>
-    <br />
-    <span class='desc'>
-      <span class='forum-desc'><!-- |description| --></span>
-      <!-- |subforums| -->
-      <br />
-      <span class='forum-led-by'><!-- |moderators| --></span>
-    </span>
-  </td>
-  <td class="row2" align="center">
-    -
-  </td>
-  <td class="row2" align="center">
-    -
-  </td>
-  <td class="row2" nowrap="nowrap">
-    Redirected Hits: <!-- |redirect_hits| -->
-  </td>
-</tr>
+---
+layout: template
+---
+<div class="redirect_row" id="f<!-- |forum_id| -->">
+  
+  <a
+    href="?showforum=<!-- |forum_id| -->"
+    class="tooltip"
+    tooltip="<!-- |description_clean| -->"
+    alt="<!-- |name| -->"
+  >
+    <div class="forum_name"><!-- |name| --></div>
+  </a>
+  <div class="forum_desc"><!-- |description| --></div>
+
+  <div class="forum_row_vars" style="display:none">
+    <div class="img_new_post"><!-- |img_new_post| --></div>
+    <div class="class_new_post"><!-- |class_new_post| --></div>
+    <div class="name"><!-- |name| --></div>
+    <div class="name_text"><!-- |name_text| --></div>
+    <div class="forum_url"><!-- |forum_url| --></div>
+    <div class="forum_id"><!-- |forum_id| --></div>
+    <div class="cat_id"><!-- |cat_id| --></div>
+    <div class="description"><!-- |description| --></div>
+    <div class="description_clean"><!-- |description_clean| --></div>
+    <div class="topics"><!-- |topics| --></div>
+    <div class="replies"><!-- |replies| --></div>
+    <div class="total_posts"><!-- |total_posts| --></div>
+    <div class="last_post"><!-- |last_post| --></div>
+    <div class="last_topic"><!-- |last_topic| --></div>
+    <div class="last_topic_text"><!-- |last_topic_text| --></div>
+    <div class="last_topic_fulltext"><!-- |last_topic_fulltext| --></div>
+    <div class="last_topic_url"><!-- |last_topic_url| --></div>
+    <div class="last_topic_id"><!-- |last_topic_id| --></div>
+    <div class="last_poster"><!-- |last_poster| --></div>
+    <div class="last_poster_avatar"><!-- |last_poster_avatar| --></div>
+    <div class="last_poster_avatar_url"><!-- |last_poster_avatar_url| --></div>
+    <div class="last_poster_text"><!-- |last_poster_text| --></div>
+    <div class="last_poster_prefix"><!-- |last_poster_prefix| --></div>
+    <div class="last_poster_suffix"><!-- |last_poster_suffix| --></div>
+    <div class="last_poster_url"><!-- |last_poster_url| --></div>
+    <div class="last_poster_id"><!-- |last_poster_id| --></div>
+    <div class="last_poster_g_id"><!-- |last_poster_g_id| --></div>
+    <div class="last_unread"><!-- |last_unread| --></div>
+    <div class="subforums"><!-- |subforums| --></div>
+    <div class="subforums_list"><!-- |subforums_list| --></div>
+    <div class="moderators"><!-- |moderators| --></div>
+    <div class="viewing"><!-- |viewing| --></div>
+  </div>
+  <div class="redirect_row_vars" style="display:none">
+    <div class="redirect_on"><!-- |redirect_on| --></div>
+    <div class="redirect_url"><!-- |redirect_url| --></div>
+    <div class="redirect_hits"><!-- |redirect_hits| --></div>
+  </div>
+</div>
