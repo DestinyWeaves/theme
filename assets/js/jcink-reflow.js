@@ -110,6 +110,7 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
     last_post_row.nextElementSibling.remove(); // googlead block
     // TODO: preserve this ad element for TOS reasons
     // TODO: test against paid forum -- does this element still exist?
+    last_post_row.append(end_hr);
     
     const tableborder_div = first_post_row.parentElement;
     tableborder_div.previousElementSibling.remove(); // random br
@@ -120,8 +121,6 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
     const post_box = document.querySelector("#qr_open");
     const form = document.querySelector("#qr_open form");
     const inner_box = document.querySelector("#qr_open div.tableborder");
-
-    post_box.insertBefore(end_hr);
 
     const submitbutton = document.querySelector('input[name="submit"]');
     submitbutton.remove();
