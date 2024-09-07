@@ -117,21 +117,22 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
 
     // do post_box first, if there's an error here we want to leave the add-reply part intact
     const post_box = document.querySelector("#qr_open");
+    const form = document.querySelector("#qr_open form");
     const inner_box = document.querySelector("#qr_open div.tableborder");
-
-    const textinput = document.querySelector('textarea[name="Post"]');
-    textinput.remove();
-    post_box.appendChild(textinput);
 
     const submitbutton = document.querySelector('input[name="submit"]');
     submitbutton.remove();
-    post_box.appendChild(submitbutton);
+    form.prepend(submitbutton);
 
+    const textinput = document.querySelector('textarea[name="Post"]');
+    textinput.remove();
+    form.prepend(textinput);
+
+    inner_box.className = "";
+    inner_box.setAttribute('style', "display:none");
     post_box.id = "post_box";
     post_box.setAttribute('align', "");
     post_box.setAttribute('style', "");
-    inner_box.className = "";
-    post_box.setAttribute('style', "display:none");
 
     tableborder_div.nextElementSibling.remove(); // add reply / fast reply / new topic / new poll
     tableborder_div.replaceWith(...tableborder_div.childNodes); // unwrap
