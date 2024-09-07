@@ -93,3 +93,15 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
   div.insertAdjacentElement('beforebegin', adbox);
   div.remove();
 });
+
+{
+  const first_post_row = document.querySelector(".post_row");
+  if (first_post_row) {
+    first_post_row.previousElementSibling.remove(); // .postlinksbar
+    first_post_row.previousElementSibling.remove(); // .maintitle
+    const tableborder_div = first_post_row.parentElement;
+    tableborder_div.previousElementSibling.remove(); // random br
+    tableborder_div.previousElementSibling.remove(); // add reply / new topic / new poll
+    tableborder_div.replaceWith(...tableborder_div.childNodes); // unwrap
+  }
+};
