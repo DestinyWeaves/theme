@@ -128,10 +128,10 @@ document.querySelectorAll(".jcink-reflow-googleads").forEach(div => {
     post_box.appendChild(submitbutton);
 
     post_box.id = "";
-    post_box.attributes.align = "";
-    post_box.attributes.style = ""; // unhide the fast post box
+    post_box.setAttribute('align', "");
+    post_box.setAttribute('style', "");
     inner_box.className = "";
-    inner_box.attributes.style = "display:none";
+    post_box.setAttribute('style', "display:none");
 
     tableborder_div.nextElementSibling.remove(); // add reply / fast reply / new topic / new poll
     tableborder_div.replaceWith(...tableborder_div.childNodes); // unwrap
