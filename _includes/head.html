@@ -42,10 +42,10 @@
 
   {% for jsfile in site.static_files %}
     {% if jsfile.path contains 'js/jcink/reflow' %}
-    <script src="{{ jsfile | relative_url }}" defer></script>
+      <script src="{{ jsfile.path | relative_url }}" defer></script>
     {% endif %}
   {% endfor %}
-  
+
   <script src="{{ '/assets/js/just-the-docs.js' | relative_url }}"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
